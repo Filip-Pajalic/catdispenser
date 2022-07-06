@@ -1,0 +1,52 @@
+{{ define "modal/proportions.html" }}
+<div class="modal fade" id="Proportions" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change feed</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Change proportions, should add upp to 50 grams:</p>
+                <div class="col-xs-4 control-group form-group">
+                    <div class="controls">
+                        <label>05:00</label>
+                        <input type="text" class="form-control calculate" id='{{ .MORNING }}' required value={{.catfeeder.Feed1.Wanted}}>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="col-xs-4 control-group form-group">
+                    <div class="controls">
+                        <label>18:00</label>
+                        <input type="text" class="form-control calculate" id='{{ .DINNER }}' required value={{.catfeeder.Feed2.Wanted}}>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="col-xs-4 control-group form-group">
+                    <div class="controls">
+                        <label>22:00</label>
+                        <input type="text" class="form-control calculate" id='{{ .NIGHT }}' required value={{.catfeeder.Feed3.Wanted}}>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="col-xs-4 control-group form-group">
+                    <div class="controls">
+                        <label>Total:</label>
+                        <input type="text" class="form-control" id="total" readonly>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="col-xs-12 control-group form-group" id="errmsg"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form method="POST"  id="proportions" action="#">
+                    <button  type="submit" class="btn btn-info">Apply changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}

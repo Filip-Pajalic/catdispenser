@@ -1,0 +1,31 @@
+{{ define "homepage/middlearea.html" }}
+
+<div class="col text-center mb-3" >
+  <img class="img-fluid rounded mx-auto d-block" src="img/logo.png" alt="nala">
+  <button data-toggle="modal" data-target="#Feed" type="button" class="btn btn-primary">Feed</button>
+  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#Proportions">Proportions</button>
+  <button data-toggle="modal" data-target="#Restart" type="button" class="btn btn-warning">Restart</button>
+  <button data-toggle="modal" data-target="#Shutdown" type="button" class="btn btn-danger">Shutdown</button>
+</div>
+
+  <!-- modal dialog to feed the cat  -->
+  {{ template "modal/feed.html" .}}
+
+
+  <!-- modal dialog to change proportions of food and time-->
+  {{ template "modal/proportions.html" .}}
+
+
+  <!-- modal dialog to restart the raspberry pi -->
+  {{ template "modal/restart.html" .}}
+
+  <!-- modal dialog to shutdown the raspberry pi -->
+  {{ template "modal/shutdown.html" .}}
+
+{{ template "modal/success.html" .}}
+
+
+
+
+  
+{{ end }}

@@ -1,0 +1,5 @@
+00 05 * * * python /home/pi/catfiles/clearjson.py
+00 06 * * * python /home/pi/cronjob/2.py 1 > /home/pi/cronjob/catmotor.log 2>&1
+01 06 * * * bash /home/pi/feed1.sh >/dev/null 2>&1
+02 06 * * * python /home/pi/cronjob/closegpio.py >/dev/null 2>&1
+03 06 * * * python /home/pi/display/display/drawcatdisplay.py > /home/pi/display/display/catdisplay.log 2>&1

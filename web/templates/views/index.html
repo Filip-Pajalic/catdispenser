@@ -1,0 +1,15 @@
+{{ define "views/index.html"}}
+<!--index.html-->
+
+<!--Embed the header.html template at this location-->
+{{ template "layouts/header.html" .}}
+
+{{ template "layouts/menu.html" .}}
+
+{{ template "homepage/middlearea.html" .}}
+
+{{ template "homepage/table.html" .}}
+
+{{ template "script/script.html" .}}
+
+{{ end }}

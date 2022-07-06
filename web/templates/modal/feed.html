@@ -1,0 +1,45 @@
+{{ define "modal/feed.html" }}
+<div class="modal fade" id="Feed" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Replace which meal?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="controls">
+                    <label>Amount in grams:</label>
+                    <input type="text" class="form-control calculate" id="amountFeed" required value="0">
+                    <p class="help-block"></p>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio1" value='' name="customRadio" class="custom-control-input" onClick="document.getElementById('amountFeed').value=this.value" checked>
+                    <label class="custom-control-label" for="customRadio1">None</label>
+
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio2" value='{{ .MORNING }}' name="customRadio" class="custom-control-input" onClick="document.getElementById('amountFeed').value={{.catfeeder.Feed1.Wanted}}">
+                    <label class="custom-control-label" value='Yes' for="customRadio2">05:00</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio3" value='{{ .DINNER }}' name="customRadio" class="custom-control-input" onClick="document.getElementById('amountFeed').value={{.catfeeder.Feed2.Wanted}}">
+                    <label class="custom-control-label" for="customRadio3">18:00</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio4" value='{{ .NIGHT }}' name="customRadio" class="custom-control-input" onClick="document.getElementById('amountFeed').value={{.catfeeder.Feed3.Wanted}}">
+                    <label class="custom-control-label" for="customRadio4">22:00</label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form method="POST" id=feed action="#">
+                    <button class="btn btn-primary"  type="submit">Feed!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}

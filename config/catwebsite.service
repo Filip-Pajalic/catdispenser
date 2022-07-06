@@ -1,0 +1,14 @@
+[Unit]
+Description=run golang website
+After=multi-user.target
+[Service]
+ExecStart= /home/pi/golangproject/main
+User=pi
+Restart=on-failure
+StartLimitBurst=2
+# Restart, but not more than once every 10 minutes
+#StartLimitInterval=600
+# Restart, but not more than once every 30s (for testing purposes)
+StartLimitInterval=30
+[Install]
+WantedBy=multi-user.target

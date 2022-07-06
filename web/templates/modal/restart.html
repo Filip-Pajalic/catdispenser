@@ -1,0 +1,23 @@
+{{ define "modal/restart.html" }}
+<div class="modal fade" id="Restart" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Restart catfeeder</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you really want to <b>restart the device?</b>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form method="POST" action="/restart">
+                    <button type="submit" class="btn btn-warning" >Yes, happily!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}

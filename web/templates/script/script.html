@@ -1,0 +1,56 @@
+{{ define "script/script.html" }}
+<script>
+  $(document).ready(function () {
+
+      //Calculate both inputs value on the fly
+      $('.calculate').keyup(function () {
+          var Tot = parseFloat($('#{{ .MORNING }}').val()) + parseFloat($('#{{ .DINNER }}').val()) + parseFloat($('#{{ .NIGHT }}').val());
+          $('#total').val(Tot);
+      });
+
+      //Clear both inputs first time when user focus on each inputs and clear value 00
+      $('.calculate').focus(function (event) {
+          $(this).val("").unbind(event);
+      });
+      $('#proportions').submit(function(e) {
+          var data={
+              morning: $('#{{ .MORNING }}').val(),
+              dinner: $('#{{ .DINNER }}').val(),
+              night : $('#{{ .NIGHT }}').val(),
+          }
+          $.ajax({
+              url: "/proportions",
+              type: "POST",
+              data: JSON.stringify(data),
+              contentType: "application/json",
+              success: function() {
+                  console.log('success!');
+                  $("#Proportions").modal('hide');
+                  $("#modalSuccess").modal('show');
+              }
+          });
+          e.preventDefault();
+      });
+
+      $('#Feed').submit(function(e) {
+          var data= {
+              time : $("input[name=customRadio]:checked").val(),
+              amountFeed : $('#amountFeed').val(),
+          }
+          $.ajax({
+              url: "/python",
+              type: "POST",
+              data: JSON.stringify(data),
+              contentType: "application/json",
+              success: function() {
+                  console.log('success!');
+                  $("#Feed").modal('hide');
+                  $("#modalFeeding").modal('show');
+              }
+          });
+          e.preventDefault();
+      });
+  });
+</script>
+</body>
+{{ end }}
