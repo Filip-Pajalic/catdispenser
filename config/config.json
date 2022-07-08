@@ -2,28 +2,28 @@
  "feed1": {
   "amountgiven": 10,
   "deviation": 2,
-  "wanted": 1,
+  "wanted": 15,
   "time": 3,
-  "skip": true
+  "skip": "false"
  },
  "feed2": {
   "amountgiven": 20,
   "deviation": 0,
-  "wanted": 2,
+  "wanted": 5,
   "time": 0,
-  "skip": false
+  "skip": "false"
  },
  "feed3": {
   "amountgiven": 30,
   "deviation": 3,
-  "wanted": 3,
+  "wanted": 25,
   "time": 5,
-  "skip": false
+  "skip": "false"
  },
  "total": {
   "deviation": 1,
   "amountgiven": 2,
-  "wanted": 55
+  "wanted": 50
  },
  "date calculated": "220312"
 }

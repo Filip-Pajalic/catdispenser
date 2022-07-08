@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-type CatFeeder struct {
+type Config struct {
 	Feed1          FeedJson  `json:"feed1"`
 	Feed2          FeedJson  `json:"feed2"`
 	Feed3          FeedJson  `json:"feed3"`
@@ -16,11 +16,11 @@ type CatFeeder struct {
 }
 
 type FeedJson struct {
-	Amountgiven int  `json:"amountgiven"`
-	Deviation   int  `json:"deviation"`
-	Wanted      int  `json:"wanted"`
-	Time        int  `json:"time"`
-	Skip        bool `json:"skip"`
+	Amountgiven int    `json:"amountgiven"`
+	Deviation   int    `json:"deviation"`
+	Wanted      int    `json:"wanted"`
+	Time        int    `json:"time"`
+	Skip        string `json:"skip"`
 }
 
 type TotalJson struct {
@@ -42,14 +42,13 @@ func openJson(filename string) []byte {
 	return byteValue
 }
 
-func LoadJson(jsonfile string) CatFeeder {
-	var catFile CatFeeder
-	json.Unmarshal(openJson(jsonfile), &catFile)
-	return catFile
+func LoadJson(jsonfile string) Config {
+	var configFile Config
+	json.Unmarshal(openJson(jsonfile), &configFile)
+	return configFile
 }
 
-func WriteJson(data CatFeeder, filename string) {
-
+func WriteJson(data Config, filename string) {
 	file, _ := json.MarshalIndent(data, "", " ")
 	_ = ioutil.WriteFile(filename, file, 0644)
 

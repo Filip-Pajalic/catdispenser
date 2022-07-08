@@ -22,27 +22,27 @@ func Router(r *gin.Engine) {
 }
 
 func index(c *gin.Context) {
-	file := util.LoadJson(util.CATJSON)
+	file := util.LoadJson(util.CONFIGPATH)
 	c.HTML(
 		http.StatusOK,
 		"views/index.html",
 		gin.H{
-			"title":     "Nala",
-			"catfeeder": file,
-			"CATJSON":   util.CATJSON,
-			"MORNING":   util.MORNING,
-			"DINNER":    util.DINNER,
-			"NIGHT":     util.NIGHT,
+			"title":      "Nala",
+			"config":     file,
+			"CONFIGPATH": util.CONFIGPATH,
+			"MORNING":    util.MORNING,
+			"DINNER":     util.DINNER,
+			"NIGHT":      util.NIGHT,
 		},
 	)
 }
 
 func scriptLog(c *gin.Context) {
-	c.File(util.CATLOG)
+	c.File(util.DISPENSERLOGPATH)
 }
 
 func displayLog(c *gin.Context) {
-	c.File(util.DISPLAYLOG)
+	c.File(util.DISPLAYLOGPATH)
 }
 
 func commandShutdown(c *gin.Context) {
@@ -80,28 +80,30 @@ func commandPython(c *gin.Context) {
 	amount := fmt.Sprintf("%v", jsonMap["amountFeed"])
 	time := fmt.Sprintf("%v", jsonMap["time"])
 
-	loadedJson := util.LoadJson(util.CATJSON)
+	loadedJson := util.LoadJson(util.CONFIGPATH)
 	if time == util.MORNING {
-		loadedJson.Feed1.Skip = true
+		loadedJson.Feed1.Skip = "true"
 	}
 	if time == util.DINNER {
-		loadedJson.Feed2.Skip = true
+		loadedJson.Feed2.Skip = "true"
 	}
 	if time == util.NIGHT {
-		loadedJson.Feed3.Skip = true
+		loadedJson.Feed3.Skip = "true"
 	}
 
-	file, err := ioutil.ReadFile(util.PYTHONSCRIPT)
+	/*file, err := ioutil.ReadFile(util.PYTHONSCRIPTPATH)
 	if err != nil {
-		log.Println("Could not read"+util.PYTHONSCRIPT, err.Error())
-		c.JSON(404, gin.H{"status": "failure", "result": "Could not read" + util.PYTHONSCRIPT})
+		log.Println("Could not read"+util.PYTHONSCRIPTPATH, err.Error())
+		c.JSON(404, gin.H{"status": "failure", "result": "Could not read" + util.PYTHONSCRIPTPATH})
 		return
 	}
 
-	result := util.ExecPython(string(file), time, amount)
+	*/
+
+	result := util.ExecPython(util.PYTHONSCRIPTPATH, amount)
 	resultString := string(result[:])
-	log.Println(resultString)
-	util.WriteJson(loadedJson, util.CATJSON)
+	//log.Println(resultString)
+	util.WriteJson(loadedJson, util.CONFIGPATH)
 	log.Println("Command Pyton result: " + resultString)
 
 	c.JSON(200, gin.H{"status": "success", "result": resultString})
@@ -117,10 +119,10 @@ func proportions(c *gin.Context) {
 	jsonString := string(bodyAsByteArray)
 	var jsonMap map[string]interface{}
 	json.Unmarshal([]byte(jsonString), &jsonMap)
-	loadedJson := util.LoadJson(util.CATJSON)
+	loadedJson := util.LoadJson(util.CONFIGPATH)
 	loadedJson.Feed1.Wanted, _ = strconv.Atoi(fmt.Sprintf("%v", jsonMap[util.MORNING]))
 	loadedJson.Feed2.Wanted, _ = strconv.Atoi(fmt.Sprintf("%v", jsonMap[util.DINNER]))
 	loadedJson.Feed3.Wanted, _ = strconv.Atoi(fmt.Sprintf("%v", jsonMap[util.NIGHT]))
-	util.WriteJson(loadedJson, util.CATJSON)
+	util.WriteJson(loadedJson, util.CONFIGPATH)
 
 }

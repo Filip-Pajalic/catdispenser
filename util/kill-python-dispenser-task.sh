@@ -1,0 +1,1 @@
+kill $(ps aux | grep '[p]ython /home/pi/dispenser/dispenser.py' | awk '{print $2}')

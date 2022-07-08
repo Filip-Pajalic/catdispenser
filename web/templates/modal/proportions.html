@@ -13,21 +13,21 @@
                 <div class="col-xs-4 control-group form-group">
                     <div class="controls">
                         <label>05:00</label>
-                        <input type="text" class="form-control calculate" id='{{ .MORNING }}' required value={{.catfeeder.Feed1.Wanted}}>
+                        <input type="text" class="form-control calculate" id='{{ .MORNING }}' required value={{.config.Feed1.Wanted}}>
                         <p class="help-block"></p>
                     </div>
                 </div>
                 <div class="col-xs-4 control-group form-group">
                     <div class="controls">
                         <label>18:00</label>
-                        <input type="text" class="form-control calculate" id='{{ .DINNER }}' required value={{.catfeeder.Feed2.Wanted}}>
+                        <input type="text" class="form-control calculate" id='{{ .DINNER }}' required value={{.config.Feed2.Wanted}}>
                         <p class="help-block"></p>
                     </div>
                 </div>
                 <div class="col-xs-4 control-group form-group">
                     <div class="controls">
                         <label>22:00</label>
-                        <input type="text" class="form-control calculate" id='{{ .NIGHT }}' required value={{.catfeeder.Feed3.Wanted}}>
+                        <input type="text" class="form-control calculate" id='{{ .NIGHT }}' required value={{.config.Feed3.Wanted}}>
                         <p class="help-block"></p>
                     </div>
                 </div>

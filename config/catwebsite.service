@@ -2,7 +2,8 @@
 Description=run golang website
 After=multi-user.target
 [Service]
-ExecStart= /home/pi/golangproject/main
+WorkingDirectory=/home/pi/web
+ExecStart=/home/pi/web/webapp
 User=pi
 Restart=on-failure
 StartLimitBurst=2

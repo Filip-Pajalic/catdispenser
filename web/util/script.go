@@ -17,11 +17,11 @@ func ExecCmd(comand string) []byte {
 	return result
 }
 
-func ExecPython(comand string, time string, amount string) []byte {
+func ExecPython(comand string, amount string) []byte {
 	cmdStr := comand
-	cmd := exec.Command("python3", cmdStr, "-time", time, "-amount", amount)
+	cmd := exec.Command("python", cmdStr, "other", amount)
 	result, err := cmd.Output()
-	log.Println("Executing command ", cmd)
+	log.Println("Executing python command ", cmd)
 	if err != nil {
 		log.Println(err.Error())
 		return []byte("")

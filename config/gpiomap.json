@@ -1,0 +1,58 @@
+{
+    "GPIO23": {
+        "used-by": "scale",
+        "mapping": "dout"
+    },
+    "GPIO16": {
+        "used-by": "scale",
+        "mapping": "PD_SCK"
+    },
+    "GPIO20": {
+        "used-by": "motordriver",
+        "mapping": "DIR"
+    },
+    "GPIO21": {
+        "used-by": "motordriver",
+        "mapping": "STEP"
+    },
+    "GPIO22": {
+        "used-by": "relay",
+        "mapping": "RELAY"
+    },
+    "GPIO14": {
+        "used-by": "Microstep",
+        "mapping": "MODE"
+    },
+    "GPIO15": {
+        "used-by": "Microstep",
+        "mapping": "MODE"
+    },
+    "GPIO18": {
+        "used-by": "Microstep",
+        "mapping": "MODE"
+    },
+    "GPIO10": {
+        "used-by": "Microstep",
+        "mapping": "MOSI"
+    },
+    "GPIO11": {
+        "used-by": "Display",
+        "mapping": "SCLK"
+    },
+    "GPIO8": {
+        "used-by": "Display",
+        "mapping": "CE0"
+    },
+    "GPIO25": {
+        "used-by": "Display",
+        "mapping": "DC"
+    },
+    "GPIO17": {
+        "used-by": "Display",
+        "mapping": "RST"
+    },
+    "GPIO24": {
+        "used-by": "Display",
+        "mapping": "BUSY"
+    }
+}

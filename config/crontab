@@ -1,5 +1,18 @@
-00 05 * * * python /home/pi/catfiles/clearjson.py
-00 06 * * * python /home/pi/cronjob/2.py 1 > /home/pi/cronjob/catmotor.log 2>&1
-01 06 * * * bash /home/pi/feed1.sh >/dev/null 2>&1
-02 06 * * * python /home/pi/cronjob/closegpio.py >/dev/null 2>&1
-03 06 * * * python /home/pi/display/display/drawcatdisplay.py > /home/pi/display/display/catdisplay.log 2>&1
+30 04 * * * python /home/pi/util/clearjson.py
+00 05 * * * python /home/pi/dispenser/dispenser.py morning 0 > /home/pi/log/dispenser.log 2>&1
+01 05 * * * bash /home/pi/util/kill-python-dispenser-task.sh >/dev/null 2>&1
+02 05 * * * python /home/pi/util/close-dispenser-gpio.py >/dev/null 2>&1
+03 05 * * * python /home/pi/display/display/screen.py > /home/pi/log/display.log 2>&1
+
+30 12 * * * python /home/pi/dispenser/vibrate-dispenser.py
+31 12 * * * python /home/pi/util/close-vibrate-dispenser-gpio.py
+
+00 18 * * * python /home/pi/dispenser/dispenser.py dinner 0 > /home/pi/log/dispenser.log 2>&1
+01 18 * * * bash /home/pi/util/kill-python-dispenser-task.sh >/dev/null 2>&1
+02 18 * * * python /home/pi/util/close-dispenser-gpio.py >/dev/null 2>&1
+03 18 * * * python /home/pi/display/display/screen.py > /home/pi/log/display.log 2>&1
+
+00 22 * * * python /home/pi/dispenser/dispenser.py night 0 > /home/pi/log/dispenser.log 2>&1
+01 22 * * * bash /home/pi/util/kill-python-dispenser-task.sh >/dev/null 2>&1
+02 22 * * * python /home/pi/util/close-dispenser-gpio.py >/dev/null 2>&1
+03 22 * * * python /home/pi/display/display/screen.py > /home/pi/log/display.log 2>&1

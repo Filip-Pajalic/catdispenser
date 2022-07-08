@@ -2,18 +2,17 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/magiconair/properties"
 	"log"
 	"web/controller"
+	"web/util"
 )
 
 func main() {
-	p := properties.MustLoadFile("${HOME}/golangproject/config.properties", properties.UTF8)
-	scriptlocation := p.MustGetString("scriptlocation")
-	loglocation := p.MustGetString("loglocation")
 
-	log.Println("loglocation: " + loglocation)
-	log.Println("scriptlocation: " + scriptlocation)
+	log.Println("displaylogpath: " + util.DISPLAYLOGPATH)
+	log.Println("configpath: " + util.CONFIGPATH)
+	log.Println("dispenserlogpath: " + util.DISPENSERLOGPATH)
+	log.Println("pythonscriptpath: " + util.PYTHONSCRIPTPATH)
 
 	r := gin.New()
 	r.Use(gin.Logger())

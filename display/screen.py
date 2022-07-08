@@ -17,7 +17,7 @@ import traceback
 #epd2in13b_V3 RED COLOR
 #Set output log level
 logging.basicConfig(level=logging.DEBUG)
-rel_path = "/home/pi/catfiles/catdata.json"
+rel_path = "/home/pi/config/config.json"
 
 with open(rel_path) as json_file:
     data = json.load(json_file)
