@@ -5,35 +5,200 @@
   <thead>
   <tr>
     <th scope="col">{{.config.DateCalculated}}</th>
-    <th scope="col">05:00</th>
-    <th scope="col">18:00</th>
-    <th scope="col">22:00</th>
+    {{if eq .config.Feed1.Error "error"}}
+      <th class="table-danger text-center" scope="col"><div>{{ .config.Feed1.ErrorReason }}</div><div>(05:00)</div></th>
+    {{ else if eq .config.Feed1.Error "none" }}
+      {{ if eq .config.Feed1.Skip "true" }}
+        <th class="table-warning text-center" scope="col"><div>SKIP</div><div>(05:00)</div></th>
+      {{ else }}
+        <th scope="col">05:00</th>
+      {{ end }}
+    {{ end }}
+
+    {{if eq .config.Feed2.Error "error"}}
+        <th class="table-danger text-center" scope="col"><div>{{ .config.Feed2.ErrorReason }}</div><div>(18:00)</div></th>
+      {{ else if eq .config.Feed2.Error "none" }}
+        {{ if eq .config.Feed2.Skip "true" }}
+          <th class="table-warning text-center" scope="col"><div>SKIP</div><div>(18:00)</div></th>
+        {{ else }}
+          <th scope="col">18:00</th>
+      {{ end }}
+    {{ end }}
+
+    {{if eq .config.Feed3.Error "error"}}
+        <th class="table-danger text-center" scope="col"><div>{{ .config.Feed3.ErrorReason }}</div><div>(22:00)</div></th>
+      {{ else if eq .config.Feed3.Error "none" }}
+        {{ if eq .config.Feed3.Skip "true" }}
+          <th class="table-warning text-center" scope="col"><div>ERROR</div><div>(22:00)</div></th>
+        {{ else }}
+          <th scope="col">22:00</th>
+      {{ end }}
+    {{ end }}
+
+    {{ if eq .config.Other.Status "true" }}
+      <th class="table-warning text-center" scope="col">Extra</th>
+    {{ end }}
+
   </tr>
   </thead>
   <tbody>
   <tr>
     <th scope="row">Given</th>
-    <td>{{.config.Feed1.Amountgiven}}</td>
-    <td>{{.config.Feed2.Amountgiven}}</td>
-    <td>{{.config.Feed3.Amountgiven}}</td>
+    {{if eq .config.Feed1.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed1.Amountgiven}}
+    {{ else if eq .config.Feed1.Error "none" }}
+      {{ if eq .config.Feed1.Skip "true" }}
+        <td class="table-warning text-center" scope="col">{{.config.Other.Amountgiven}}
+      {{ else }}
+        <td class="text-center">{{.config.Feed1.Amountgiven}}
+      {{ end }}
+    {{ end }}
+    </td>
+
+    {{if eq .config.Feed2.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed2.Amountgiven}}
+    {{ else if eq .config.Feed2.Error "none" }}
+      {{ if eq .config.Feed2.Skip "true" }}
+        <td class="table-warning text-center" scope="col">{{.config.Other.Amountgiven}}
+      {{ else }}
+        <td class="text-center">{{.config.Feed2.Amountgiven}}
+      {{ end }}
+    {{ end }}
+    </td>
+
+    {{if eq .config.Feed3.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed3.Amountgiven}}
+    {{ else if eq .config.Feed3.Error "none" }}
+      {{ if eq .config.Feed3.Skip "true" }}
+        <td class="table-warning text-center" scope="col">{{.config.Other.Amountgiven}}
+      {{ else }}
+        <td class="text-center">{{.config.Feed3.Amountgiven}}
+      {{ end }}
+    {{ end }}
+    </td>
+
+    {{ if eq .config.Other.Status "true" }}
+      <td class="table-warning text-center">{{.config.Other.Amountgiven}}</td>
+    {{ end }}
+
   </tr>
   <tr>
     <th scope="row">Wanted</th>
-    <td>{{.config.Feed1.Wanted}}</td>
-    <td>{{.config.Feed2.Wanted}}</td>
-    <td>{{.config.Feed3.Wanted}}</td>
+    {{if eq .config.Feed1.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed1.Wanted}}
+    {{ else if eq .config.Feed1.Error "none" }}
+      {{ if eq .config.Feed1.Skip "true" }}
+        <td class="table-warning text-center" scope="col">{{.config.Other.Wanted}}
+      {{ else }}
+        <td class="text-center">{{.config.Feed1.Wanted}}
+      {{ end }}
+    {{ end }}
+    </td>
+
+    {{if eq .config.Feed2.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed2.Wanted}}
+    {{ else if eq .config.Feed2.Error "none" }}
+      {{ if eq .config.Feed2.Skip "true" }}
+        <td class="table-warning text-center" scope="col">{{.config.Other.Wanted}}
+      {{ else }}
+        <td class="text-center">{{.config.Feed2.Wanted}}
+      {{ end }}
+    {{ end }}
+    </td>
+
+    {{if eq .config.Feed3.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed3.Wanted}}
+    {{ else if eq .config.Feed3.Error "none" }}
+      {{ if eq .config.Feed3.Skip "true" }}
+        <td class="table-warning text-center" scope="col">{{.config.Other.Wanted}}
+      {{ else }}
+        <td class="text-center">{{.config.Feed3.Wanted}}
+      {{ end }}
+    {{ end }}
+    </td>
+
+    {{ if eq .config.Other.Status "true" }}
+      <td class="table-warning text-center">{{.config.Other.Wanted}}</td>
+    {{ end }}
+
   </tr>
   <tr>
     <th scope="row">Deviation</th>
-    <td>{{.config.Feed1.Deviation}}</td>
-    <td>{{.config.Feed2.Deviation}}</td>
-    <td>{{.config.Feed3.Deviation}}</td>
+    {{if eq .config.Feed1.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed1.Deviation}}
+    {{ else if eq .config.Feed1.Error "none" }}
+      {{ if eq .config.Feed1.Skip "true" }}
+        <td class="table-warning text-center" scope="col">{{.config.Other.Deviation}}
+      {{ else }}
+        <td class="text-center">{{.config.Feed1.Deviation}}
+      {{ end }}
+    {{ end }}
+    </td>
+
+    {{if eq .config.Feed2.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed2.Deviation}}
+    {{ else if eq .config.Feed2.Error "none" }}
+      {{ if eq .config.Feed2.Skip "true" }}
+        <td class="table-warning text-center" scope="col">{{.config.Other.Deviation}}
+      {{ else }}
+        <td class="text-center">{{.config.Feed2.Deviation}}
+      {{ end }}
+    {{ end }}
+    </td>
+
+    {{if eq .config.Feed3.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed3.Deviation}}
+    {{ else if eq .config.Feed3.Error "none" }}
+      {{ if eq .config.Feed3.Skip "true" }}
+        <td class="table-warning text-center" scope="col">{{.config.Other.Deviation}}
+      {{ else }}
+        <td class="text-center">{{.config.Feed3.Deviation}}
+      {{ end }}
+    {{ end }}
+    </td>
+    {{ if eq .config.Other.Status "true" }}
+      <td class="table-warning text-center">{{.config.Other.Deviation}}</td>
+    {{ end }}
+
   </tr>
   <tr>
     <th scope="row">Time</th>
-    <td>{{.config.Feed1.Time}}</td>
-    <td>{{.config.Feed2.Time}}</td>
-    <td>{{.config.Feed3.Time}}</td>
+    {{if eq .config.Feed1.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed1.Time}}
+    {{ else if eq .config.Feed1.Error "none" }}
+      {{ if eq .config.Feed1.Skip "true" }}
+        <td class="table-warning text-center" scope="col">{{.config.Other.Time}}
+      {{ else }}
+        <td class="text-center">{{.config.Feed1.Time}}
+      {{ end }}
+    {{ end }}
+    </td>
+
+    {{if eq .config.Feed2.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed2.Time}}
+    {{ else if eq .config.Feed2.Error "none" }}
+      {{ if eq .config.Feed2.Skip "true" }}
+        <td class="table-warning text-center" scope="col">{{.config.Other.Time}}
+      {{ else }}
+        <td class="text-center">{{.config.Feed2.Time}}
+      {{ end }}
+    {{ end }}
+    </td>
+
+    {{if eq .config.Feed3.Error "error"}}
+      <td class="table-danger text-center" scope="col">{{.config.Feed3.Time}}
+    {{ else if eq .config.Feed3.Error "none" }}
+      {{ if eq .config.Feed3.Skip "true" }}
+      <td class="table-warning text-center" scope="col">{{.config.Other.Time}}
+      {{ else }}
+       <td class="text-center">{{.config.Feed3.Time}}
+      {{ end }}
+    {{ end }}
+    </td>
+
+    {{ if eq .config.Other.Status "true" }}
+      <td class="table-warning text-center">{{.config.Other.Time}}</td>
+    {{ end }}
   </tr>
   </tbody>
 </table>

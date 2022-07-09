@@ -8,6 +8,7 @@ import threading
 import json
 import serial
 import glob
+from datetime import date
 
 class Dispenser:
     
@@ -45,6 +46,10 @@ class Dispenser:
         self.init()
         
     def init(self):
+        today = date.today()
+        d1 = today.strftime("%y%m%d")
+
+        logging.info("Date: " + d1)
         self.findPortTeensy()
         self.ser = serial.Serial(port=self.serport,baudrate=self.baudrate,parity=serial.PARITY_NONE,stopbits=serial.STOPBITS_ONE,bytesize=serial.EIGHTBITS,timeout=.1)
         print "Connected to Teensy on: " + self.ser.portstr

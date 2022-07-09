@@ -1,18 +1,26 @@
+#Meal1
 30 04 * * * python /home/pi/util/clearjson.py
-00 05 * * * python /home/pi/dispenser/dispenser.py morning 0 > /home/pi/log/dispenser.log 2>&1
-01 05 * * * bash /home/pi/util/kill-python-dispenser-task.sh >/dev/null 2>&1
-02 05 * * * python /home/pi/util/close-dispenser-gpio.py >/dev/null 2>&1
-03 05 * * * python /home/pi/display/display/screen.py > /home/pi/log/display.log 2>&1
+00 05 * * * python /home/pi/dispenser/dispenser.py morning 0 >> /home/pi/log/dispenser.log 2>&1
+01 05 * * * bash /home/pi/util/kill-python-dispenser-task.sh > /dev/null 2>&1
+02 05 * * * python /home/pi/util/close-dispenser-gpio.py > /dev/null 2>&1
+03 05 * * * python /home/pi/display/display/screen.py >> /home/pi/log/display.log 2>&1
 
+#vibrate to loosen food.
 30 12 * * * python /home/pi/dispenser/vibrate-dispenser.py
 31 12 * * * python /home/pi/util/close-vibrate-dispenser-gpio.py
 
-00 18 * * * python /home/pi/dispenser/dispenser.py dinner 0 > /home/pi/log/dispenser.log 2>&1
-01 18 * * * bash /home/pi/util/kill-python-dispenser-task.sh >/dev/null 2>&1
-02 18 * * * python /home/pi/util/close-dispenser-gpio.py >/dev/null 2>&1
-03 18 * * * python /home/pi/display/display/screen.py > /home/pi/log/display.log 2>&1
+#Meal2
+00 18 * * * python /home/pi/dispenser/dispenser.py dinner 0 >> /home/pi/log/dispenser.log 2>&1
+01 18 * * * bash /home/pi/util/kill-python-dispenser-task.sh > /dev/null 2>&1
+02 18 * * * python /home/pi/util/close-dispenser-gpio.py > /dev/null 2>&1
+03 18 * * * python /home/pi/display/display/screen.py >> /home/pi/log/display.log 2>&1
 
-00 22 * * * python /home/pi/dispenser/dispenser.py night 0 > /home/pi/log/dispenser.log 2>&1
-01 22 * * * bash /home/pi/util/kill-python-dispenser-task.sh >/dev/null 2>&1
-02 22 * * * python /home/pi/util/close-dispenser-gpio.py >/dev/null 2>&1
-03 22 * * * python /home/pi/display/display/screen.py > /home/pi/log/display.log 2>&1
+#Meal3
+00 22 * * * python /home/pi/dispenser/dispenser.py night 0 >> /home/pi/log/dispenser.log 2>&1
+01 22 * * * bash /home/pi/util/kill-python-dispenser-task.sh > /dev/null 2>&1
+02 22 * * * python /home/pi/util/close-dispenser-gpio.py > /dev/null 2>&1
+03 22 * * * python /home/pi/display/display/screen.py >> /home/pi/log/display.log 2>&1
+
+#Clear logs
+0 3 * * 1 rm /home/pi/log/display.log
+1 3 * * 1 rm /home/pi/log/dispenser.log

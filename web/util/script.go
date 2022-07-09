@@ -19,7 +19,7 @@ func ExecCmd(comand string) []byte {
 
 func ExecPython(comand string, amount string) []byte {
 	cmdStr := comand
-	cmd := exec.Command("python", cmdStr, "other", amount)
+	cmd := exec.Command("/bin/sh", "-c", cmdStr+" other "+amount+" >> /home/pi/log/dispenser.log 2>&1")
 	result, err := cmd.Output()
 	log.Println("Executing python command ", cmd)
 	if err != nil {

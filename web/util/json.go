@@ -11,6 +11,7 @@ type Config struct {
 	Feed1          FeedJson  `json:"feed1"`
 	Feed2          FeedJson  `json:"feed2"`
 	Feed3          FeedJson  `json:"feed3"`
+	Other          OtherJson `json:"other"`
 	Total          TotalJson `json:"total"`
 	DateCalculated string    `json:"date calculated"`
 }
@@ -21,6 +22,18 @@ type FeedJson struct {
 	Wanted      int    `json:"wanted"`
 	Time        int    `json:"time"`
 	Skip        string `json:"skip"`
+	Error       string `json:"error"`
+	ErrorReason string `json:"error-reason"`
+}
+
+type OtherJson struct {
+	Status      string `json:"status"`
+	Amountgiven int    `json:"amountgiven"`
+	Deviation   int    `json:"deviation"`
+	Wanted      int    `json:"wanted"`
+	Time        int    `json:"time"`
+	Error       string `json:"error"`
+	ErrorReason string `json:"error-reason"`
 }
 
 type TotalJson struct {

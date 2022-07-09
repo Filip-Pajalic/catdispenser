@@ -3,6 +3,7 @@
 import sys
 import os
 import json
+from datetime import date
 picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
 if os.path.exists(libdir):
@@ -18,6 +19,11 @@ import traceback
 #Set output log level
 logging.basicConfig(level=logging.DEBUG)
 rel_path = "/home/pi/config/config.json"
+
+today = date.today()
+d1 = today.strftime("%y%m%d")
+logging.info("--------------------------------------------------------")
+logging.info("Date: " + d1)
 
 with open(rel_path) as json_file:
     data = json.load(json_file)
@@ -48,9 +54,9 @@ try:
     ystart = 18 + yzero
     ydiff = 18
 
-    if (data['feed1']['deviation'] < 6) and (data['feed2']['deviation'] <6) and (data['feed3']['deviation'] <6):
+    if (data['feed1']['error'] != "error") and (data['feed2']['error'] != "error") and (data['feed3']['error'] != "error"):
 
-        drawBlack.text((xstart, yzero), "06:00", font = font15, fill = 0)
+        drawBlack.text((xstart, yzero), "05:00", font = font15, fill = 0)
         drawBlack.text((xstart+xdiff, yzero), "18:00", font = font15, fill = 0)
         drawBlack.text((xstart+xdiff*2, yzero), "22:00", font = font15, fill = 0)
 
@@ -110,7 +116,14 @@ try:
         drawRed.line([(xstart + xdiffline*3,yzeroline),(xstart + xdiffline*3,yendline)], fill = 0,width = 2)
     
     else:
-        drawRed.text((10, 30), "ERROR SCALE!", font = font30, fill = 0)
+        if (str(data['feed1']['error']) == "error"):
+            drawRed.text((10, 30), str(data['feed1']['error-reason']), font = font30, fill = 0)
+        else:
+            if (str(data['feed2']['error']) == "error"):
+                drawRed.text((10, 30), str(data['feed2']['error-reason']), font = font30, fill = 0)
+            else:
+                drawRed.text((10, 30), str(data['feed3']['error-reason']), font = font30, fill = 0)
+        
 
     #outerbox
     

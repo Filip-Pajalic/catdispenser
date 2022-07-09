@@ -90,19 +90,12 @@ func commandPython(c *gin.Context) {
 	if time == util.NIGHT {
 		loadedJson.Feed3.Skip = "true"
 	}
-
-	/*file, err := ioutil.ReadFile(util.PYTHONSCRIPTPATH)
-	if err != nil {
-		log.Println("Could not read"+util.PYTHONSCRIPTPATH, err.Error())
-		c.JSON(404, gin.H{"status": "failure", "result": "Could not read" + util.PYTHONSCRIPTPATH})
-		return
+	if time == "" {
+		loadedJson.Other.Status = "true"
 	}
-
-	*/
 
 	result := util.ExecPython(util.PYTHONSCRIPTPATH, amount)
 	resultString := string(result[:])
-	//log.Println(resultString)
 	util.WriteJson(loadedJson, util.CONFIGPATH)
 	log.Println("Command Pyton result: " + resultString)
 

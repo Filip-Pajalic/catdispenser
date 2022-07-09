@@ -6,6 +6,7 @@ from hx711 import HX711
 import sys
 import argparse
 import json
+from datetime import date
 
 
 class Dispenser:
@@ -29,9 +30,18 @@ class Dispenser:
         self.grams = 0
         self.rel_path = "/home/pi/config/config.json"
         self.skip = False
-        if not (self.preset == "other"):
-            with open(self.rel_path) as json_file:
-                self.data = json.load(json_file)
+        self.error = ""
+
+        today = date.today()
+        d1 = today.strftime("%y%m%d")
+        
+        print("#######################################################")
+        print("Date: " + d1)
+        
+
+        
+        with open(self.rel_path) as json_file:
+            self.data = json.load(json_file)
 
         if self.preset == "morning":
             if self.data['feed1']['skip'] == "true":
@@ -48,7 +58,7 @@ class Dispenser:
         if self.preset == "other":
             print("Feeding non scheduled meal.")
             self.grams = self.amount
-        print(self.grams)
+        print("Feeding for amount: " + str(self.grams))
         if self.skip == False:
             self.init()
 
@@ -101,6 +111,7 @@ class Dispenser:
                 self.totaltime = now - program_starts
                 if (self.totaltime) > 15:
                     weight = self.grams
+                    self.error = "Exceeded time"
         except KeyboardInterrupt:
             return
 
@@ -109,6 +120,10 @@ class Dispenser:
         sleep(0.2)
         final = self.hx.get_weight(19)
         deviation = self.grams - final
+        if(deviation > -8):
+            self.error = "Weight issue"
+        if(deviation < 8):
+            self.error = "Weight issue"
         print(final)
         number = "1"
         if self.preset == "dinner":
@@ -119,8 +134,18 @@ class Dispenser:
             self.data['feed'+ number]['amountgiven'] = final
             self.data['feed'+ number]['deviation'] = int(deviation)
             self.data['feed'+ number]['time'] = round(self.totaltime,1)
-            with open(self.rel_path, 'w') as f:
-                json.dump(self.data, f , indent=4)
+            if self.error != "":
+                self.data['feed'+ number]['error'] = "error"
+                self.data['feed'+ number]['error-reason'] = self.error
+        else:
+            self.data['other']['amountgiven'] = final
+            self.data['other']['deviation'] = int(deviation)
+            self.data['other']['time'] = round(self.totaltime,1)
+            if self.error != "":
+                self.data['other']['error'] = "error"
+                self.data['other']['error-reason'] = self.error
+        with open(self.rel_path, 'w') as f:
+            json.dump(self.data, f , indent=4)
         self.hx.power_down()
         print("Cleaning...")
         GPIO.cleanup()
