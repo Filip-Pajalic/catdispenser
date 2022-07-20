@@ -12,7 +12,7 @@
       $('.calculate').focus(function (event) {
           $(this).val("").unbind(event);
       });
-      $('#proportions').submit(function(e) {
+      $('#proportionsButton').submit(function(e) {
           var data={
               morning: $('#{{ .MORNING }}').val(),
               dinner: $('#{{ .DINNER }}').val(),
@@ -32,7 +32,7 @@
           e.preventDefault();
       });
 
-      $('#Feed').submit(function(e) {
+      $('#feedButton').submit(function(e) {
           var data= {
               time : $("input[name=customRadio]:checked").val(),
               amountFeed : $('#amountFeed').val(),

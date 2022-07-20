@@ -1,19 +1,19 @@
 {
  "feed1": {
-  "amountgiven": 10,
-  "deviation": 2,
+  "amountgiven": 0,
+  "deviation": 0,
   "wanted": 15,
-  "time": 3,
+  "time": 0,
   "skip": "true",
-  "error": "error",
-  "error-reason": "Stuck"
+  "error": "none",
+  "error-reason": ""
  },
  "feed2": {
   "amountgiven": 0,
   "deviation": 0,
   "wanted": 5,
   "time": 0,
-  "skip": "false",
+  "skip": "true",
   "error": "none",
   "error-reason": ""
  },
@@ -27,18 +27,18 @@
   "error-reason": ""
  },
  "other": {
-  "status": "false",
-  "amountgiven": 30,
-  "deviation": 3,
-  "wanted": 25,
-  "time": 5,
+  "status": "true",
+  "amountgiven": 0,
+  "deviation": 2,
+  "wanted": 5,
+  "time": 0,
   "error": "none",
   "error-reason": ""
  },
  "total": {
-  "deviation": 1,
-  "amountgiven": 2,
+  "deviation": 0,
+  "amountgiven": 0,
   "wanted": 50
  },
- "date calculated": "220312"
+ "date calculated": "220710"
 }

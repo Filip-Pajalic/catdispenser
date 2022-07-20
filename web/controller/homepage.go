@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	time2 "time"
 	"web/util"
 )
 
@@ -93,10 +94,12 @@ func commandPython(c *gin.Context) {
 	if time == "" {
 		loadedJson.Other.Status = "true"
 	}
-
+	//loadedJson.Other.Wanted, _ = strconv.Atoi(amount)
+	util.WriteJson(loadedJson, util.CONFIGPATH)
+	//reading same file sleep here.. Should not do this way, send parameters instead of reading same file.
+	time2.Sleep(1)
 	result := util.ExecPython(util.PYTHONSCRIPTPATH, amount)
 	resultString := string(result[:])
-	util.WriteJson(loadedJson, util.CONFIGPATH)
 	log.Println("Command Pyton result: " + resultString)
 
 	c.JSON(200, gin.H{"status": "success", "result": resultString})

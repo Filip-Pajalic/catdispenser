@@ -29,7 +29,7 @@
         <th class="table-danger text-center" scope="col"><div>{{ .config.Feed3.ErrorReason }}</div><div>(22:00)</div></th>
       {{ else if eq .config.Feed3.Error "none" }}
         {{ if eq .config.Feed3.Skip "true" }}
-          <th class="table-warning text-center" scope="col"><div>ERROR</div><div>(22:00)</div></th>
+          <th class="table-warning text-center" scope="col"><div>SKIP</div><div>(22:00)</div></th>
         {{ else }}
           <th scope="col">22:00</th>
       {{ end }}

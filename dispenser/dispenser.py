@@ -44,20 +44,25 @@ class Dispenser:
             self.data = json.load(json_file)
 
         if self.preset == "morning":
-            if self.data['feed1']['skip'] == "true":
+            print("Scheduled Feed 05:00")
+            if self.data['feed1']['skip'] == "true":                
                 self.skip = True
             self.grams = self.data['feed1']['wanted']
         if self.preset == "dinner":
-            if self.data['feed2']['skip'] == "true":
+            print("Scheduled Feed 18:00")
+            if self.data['feed2']['skip'] == "true":                
                 self.skip = True
             self.grams = self.data['feed2']['wanted']
         if self.preset == "night":
-            if self.data['feed3']['skip'] == "true":
+            print("Scheduled Feed 22:00")
+            if self.data['feed3']['skip'] == "true":                
                 self.skip = True
             self.grams = self.data['feed3']['wanted']
         if self.preset == "other":
             print("Feeding non scheduled meal.")
             self.grams = self.amount
+            self.data['other']['wanted'] == int(self.amount)
+            print(str(self.data['other']['wanted']))
         print("Feeding for amount: " + str(self.grams))
         if self.skip == False:
             self.init()
@@ -120,9 +125,7 @@ class Dispenser:
         sleep(0.2)
         final = self.hx.get_weight(19)
         deviation = self.grams - final
-        if(deviation > -8):
-            self.error = "Weight issue"
-        if(deviation < 8):
+        if deviation < -5 or deviation > 5:
             self.error = "Weight issue"
         print(final)
         number = "1"
@@ -137,7 +140,7 @@ class Dispenser:
             if self.error != "":
                 self.data['feed'+ number]['error'] = "error"
                 self.data['feed'+ number]['error-reason'] = self.error
-        else:
+        if self.preset == "other":
             self.data['other']['amountgiven'] = final
             self.data['other']['deviation'] = int(deviation)
             self.data['other']['time'] = round(self.totaltime,1)
