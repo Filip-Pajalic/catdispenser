@@ -1,6 +1,7 @@
 #! /usr/bin/python2
 from time import sleep
 import time
+
 import RPi.GPIO as GPIO
 from hx711 import HX711
 import sys
@@ -17,7 +18,10 @@ class Dispenser:
     CW = 1     # Clockwise Rotation
     CCW = 0    # Counterclockwise Rotation
     SPR = 48   # Steps per rev (360 / 7.5)
-    referenceUnit = 258
+    referenceUnit = -3068
+    servoPIN = 4
+    pwm = None
+    
 
 
     def __init__(self, preset, amount):
@@ -61,13 +65,16 @@ class Dispenser:
         if self.preset == "other":
             print("Feeding non scheduled meal.")
             self.grams = self.amount
-            self.data['other']['wanted'] == int(self.amount)
-            print(str(self.data['other']['wanted']))
+            self.data['other']['wanted'] = int(self.amount)
         print("Feeding for amount: " + str(self.grams))
         if self.skip == False:
             self.init()
 
     def init(self):
+        GPIO.setup(servoPIN, GPIO.OUT)
+        self.pwm=GPIO.PWM(self.servoPIN, 50)
+        self.pwm.start(0)
+        self.SetAngle(34.3)
         GPIO.setup(self.DIR, GPIO.OUT)
         GPIO.setup(self.STEP, GPIO.OUT)
         GPIO.setup(self.RELAY, GPIO.OUT)
@@ -88,6 +95,16 @@ class Dispenser:
         self.hx.tare()
         self.hx.power_up()
         print("Tare done!")
+
+    def SetAngle(self, angle):
+        duty = angle / 18 + 2
+        GPIO.output(self.servoPIN, True)
+        self.pwm.ChangeDutyCycle(duty)
+        time.sleep(1)
+        GPIO.output(self.servoPIN, False)
+        self.pwm.ChangeDutyCycle(0)
+
+    
 
     def runMotor(self):
         step_forward = 35
@@ -128,6 +145,8 @@ class Dispenser:
         if deviation < -5 or deviation > 5:
             self.error = "Weight issue"
         print(final)
+        self.SetAngle(130)
+        self.pwn.stop()
         number = "1"
         if self.preset == "dinner":
             number = "2"
